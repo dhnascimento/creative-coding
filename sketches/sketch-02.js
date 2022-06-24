@@ -13,21 +13,21 @@ const getRandomColor = (red, green, blue, alpha) => {
 const sketch = () => {
   return ({ context, width, height }) => {
     // Frame rectangle
-    context.fillStyle = '#ccc';
+    context.fillStyle = '#040505';
     context.fillRect(0, 0, width, height);
     
     // Center drawing
-    const cx = width * 0.0;
-    const cy = height * 1;
+    const cx = width * 0.5;
+    const cy = height * 0.5;
     // Set size of smaller rectangles
-    const w = width * 0.01;
-    const h = height * 0.7;
+    const w = width * 0.003;
+    const h = height * 0.2;
     // Initialize variables to set position
     let x,y, modifiedRadius;
     // Number of iterations to draw elements
-    const num = 200;
+    const num = 2000;
     // Radius of the circle (i.e. how far sketches move from center)
-    const defaultRadius = width * 1.25;
+    const defaultRadius = width * 0.3;
     // let radius = width * 0.06;
 
     const radiusObj = {
@@ -52,13 +52,10 @@ const sketch = () => {
         modifiedRadius = defaultRadius * random.range(0.6, 1);
         counter.both ++;
       } else if (i > 0 && i % 3 === 0) {
-        counter.modulus3 ++;
         modifiedRadius = radiusObj[3] * random.range(0.7, 0.9);
       } else if (i > 0 && i % 4 === 0) {
-        counter.modulus4 ++;
         modifiedRadius = radiusObj[4] * random.range(1.1, 1.5);
       } else {
-        counter.other ++;
         modifiedRadius = defaultRadius * random.range(0.01, 1);
       }
 
@@ -79,9 +76,9 @@ const sketch = () => {
       
       // Random colors
       let alphaRand = random.range(0.6, 1);
-      let red = random.range(220, 240);
-      let green = random.range(220, 240);
-      let blue = random.range(0, 50);
+      let red = random.range(0, 0);
+      let green = random.range(0, 150);
+      let blue = random.range(100, 240);
 
       context.fillStyle = getRandomColor(red, green, blue, alphaRand);
       // Draw rectangle and randomly position them
@@ -93,9 +90,9 @@ const sketch = () => {
 
       // Colors for arcs
       alphaRand = Math.random();
-      red = random.range(0, 100);
+      red = random.range(0, 0);
       green = random.range(100, 240);
-      blue = random.range(50, 240);
+      blue = random.range(0, 150);
 
       context.strokeStyle = getRandomColor(red, green, blue, alphaRand);
       context.translate(cx, cy);
@@ -103,7 +100,8 @@ const sketch = () => {
       context.lineWidth = random.range(10, 25);
 
       context.beginPath();
-      context.arc(0, 0, modifiedRadius * random.range(0.1, 1.2), slice * random.range(2, 10), slice * random.range(10, 20));
+      // x-coordinate, y-coordinate, radius, starting angle, ending angle
+      context.arc(0, 0, modifiedRadius * random.range(0.5, 1.3), slice * random.range(5, 10), slice * random.range(30, 80));
       context.stroke();
 
       context.restore();
